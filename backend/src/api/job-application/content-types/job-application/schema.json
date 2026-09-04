@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "job_applications",
+  "info": {
+    "singularName": "job-application",
+    "pluralName": "job-applications",
+    "displayName": "JobApplication"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "jobOffer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::job-offer.job-offer",
+      "inversedBy": "jobApplications"
+    },
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "biginteger"
+    },
+    "cv": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "message": {
+      "type": "text"
+    },
+    "statusApplication": {
+      "type": "enumeration",
+      "required": true,
+      "default": "nowy",
+      "enum": [
+        "nowy",
+        "w trakcie recenzji",
+        "rozmowa kwalifikacyjna",
+        "odrzucony",
+        "przyjęty"
+      ]
+    }
+  }
+}

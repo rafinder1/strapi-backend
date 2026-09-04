@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "job_offers",
+  "info": {
+    "singularName": "job-offer",
+    "pluralName": "job-offers",
+    "displayName": "JobOffer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "default": "Warszawa"
+    },
+    "employmentType": {
+      "type": "enumeration",
+      "required": true,
+      "default": "Umowa o pracę",
+      "enum": [
+        "Umowa o pracę",
+        "Umowa zlecenie",
+        "Kontrakt B2B"
+      ]
+    },
+    "publishedDate": {
+      "type": "date",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "responsibilities": {
+      "type": "richtext"
+    },
+    "requirements": {
+      "type": "richtext"
+    },
+    "niceToHave": {
+      "type": "richtext"
+    },
+    "whatWeOffer": {
+      "type": "richtext"
+    },
+    "active": {
+      "type": "boolean",
+      "required": true
+    },
+    "jobApplications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job-application.job-application",
+      "mappedBy": "jobOffer"
+    }
+  }
+}
