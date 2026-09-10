@@ -11,9 +11,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   strapi:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ghcr.io/rafinder1/strapi-backend:latest
     container_name: strapi
     working_dir: /app
     restart: unless-stopped
