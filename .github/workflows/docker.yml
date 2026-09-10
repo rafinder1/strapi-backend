@@ -58,3 +58,28 @@ jobs:
             sudo docker compose pull strapi
             sudo docker compose --env-file backend/.env up -d
             sudo docker compose ps
+
+            echo "Waiting for Strapi healthcheck..."
+
+              for i in {1..30}; do
+                STATUS=$(sudo docker inspect --format='{{.State.Health.Status}}' strapi 2>/dev/null || echo "starting")
+
+                echo "Health: $STATUS"
+
+                if [ "$STATUS" = "healthy" ]; then
+                  echo "Strapi is healthy!"
+                  exit 0
+                fi
+
+                if [ "$STATUS" = "unhealthy" ]; then
+                  echo "Strapi is unhealthy!"
+                  sudo docker compose logs --tail=100 strapi
+                  exit 1
+                fi
+
+                sleep 5
+              done
+
+              echo "Strapi did not become healthy in time."
+              sudo docker compose logs --tail=100 strapi
+              exit 1
