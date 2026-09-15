@@ -57,14 +57,6 @@ jobs:
             cd /opt/strapi-backend
 
             sudo docker compose --env-file backend/.env pull strapi
-            sudo docker compose --env-file backend/.env up -d strapi
+            sudo docker compose --env-file backend/.env up -d --wait strapi
 
-            echo "Waiting for Strapi..."
-
-            if ! sudo docker compose --env-file backend/.env ps strapi | grep -q "healthy"; then
-              echo "Strapi is not healthy!"
-              sudo docker compose --env-file backend/.env logs --tail=100 strapi
-              exit 1
-            fi
-
-            echo "Strapi is healthy!"
+            sudo docker compose --env-file backend/.env ps
